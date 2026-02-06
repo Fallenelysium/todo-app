@@ -73,10 +73,12 @@ body{
   display:flex;
   gap: 10px;
   margin-bottom: 14px;
+  align-items: stretch; /* ✅ netter uitlijnen */
 }
 
 .add__input{
   flex: 1;
+  min-width: 0; /* ✅ FIX: voorkomt dat knop “buiten” valt */
   padding: 14px;
   border-radius: 14px;
   border: 1px solid var(--border);
@@ -107,6 +109,9 @@ body{
   background: var(--primary);
   border-color: transparent;
   color: var(--primaryText);
+
+  white-space: nowrap; /* ✅ tekst blijft 1 regel */
+  flex: 0 0 auto;      /* ✅ knop blijft normaal */
 }
 
 .btn--danger{
@@ -116,7 +121,7 @@ body{
   color: var(--dangerText);
 }
 
-/* 9) Lijst (nog leeg, maar alvast klaar) */
+/* 9) Lijst */
 .todoList{
   list-style: none;
   padding: 0;
@@ -149,6 +154,7 @@ body{
 
 .todoText{
   flex: 1;
+  min-width: 0;          /* ✅ extra safe */
   font-size: 16px;
   word-break: break-word;
 }
@@ -187,4 +193,3 @@ body{
     font-size: 20px;
   }
 }
-
