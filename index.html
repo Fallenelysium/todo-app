@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mijn To-Do</title>
+
+  <!-- ✅ CSS link (jouw mapstructuur) -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
+
+</head>
+
+<body>
+  <main class="app">
+
+    <!-- 🔝 HEADER -->
+    <header class="header">
+      <h1 class="title">📝 Mijn To-Do</h1>
+
+      <!-- 🌙☀️ theme toggle knop -->
+      <button id="themeToggle" class="btn" type="button" aria-label="Thema wisselen">
+        🌙
+      </button>
+    </header>
+
+    <!-- ➕ INPUT / TOEVOEGEN -->
+    <section class="add">
+      <form id="todoForm" class="add__form">
+        <input
+          id="todoInput"
+          class="add__input"
+          type="text"
+          placeholder="Typ een taak..."
+          autocomplete="off"
+        />
+        <button class="btn btn--primary" type="submit">Toevoegen</button>
+      </form>
+    </section>
+
+    <!-- 📋 LIJST -->
+    <section class="todos">
+      <ul id="todoList" class="todoList">
+        <!-- Taken komen hier via JavaScript -->
+      </ul>
+    </section>
+
+    <!-- 🧹 ONDERAAN -->
+    <footer class="footer">
+      <button id="clearDone" class="btn btn--danger" type="button">
+        Verwijder afgevinkt
+      </button>
+    </footer>
+
+  </main>
+
+  <!-- ✅ JS link (jouw mapstructuur) -->
+  <script src="assets/js/app.js"></script>
+  <script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./service-worker.js");
+  }
+</script>
+
+</body>
+</html>

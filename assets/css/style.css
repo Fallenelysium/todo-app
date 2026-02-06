@@ -1,0 +1,166 @@
+/* 1) Basis reset */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, Arial, sans-serif; }
+
+/* 2) Theme variabelen (kleuren) */
+:root{
+  --bg: #0f172a;          /* achtergrond */
+  --card: #111827;        /* kaart/app */
+  --text: #e2e8f0;        /* tekst */
+  --muted: #94a3b8;       /* zachte tekst */
+  --border: #334155;      /* rand */
+  --input: #0b1220;       /* input achtergrond */
+
+  --primary: #38bdf8;     /* knop blauw */
+  --primaryText: #082f49;
+
+  --danger: #f97316;      /* oranje */
+  --dangerText: #2b1100;
+}
+
+/* 3) Licht theme (als body class="light") */
+body.light{
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #475569;
+  --border: #cbd5e1;
+  --input: #ffffff;
+
+  --primary: #2563eb;
+  --primaryText: #ffffff;
+
+  --danger: #ea580c;
+  --dangerText: #ffffff;
+}
+
+/* 4) Pagina layout */
+body{
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: 18px;
+}
+
+/* 5) App card (telefoon-vriendelijk) */
+.app{
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+
+/* 6) Header */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.title{
+  font-size: 22px;
+  margin: 0;
+}
+
+/* 7) Form rij */
+.add__form{
+  display:flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.add__input{
+  flex: 1;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  color: var(--text);
+  outline: none;
+  font-size: 16px; /* ✅ beter voor mobiel */
+}
+
+.add__input::placeholder{
+  color: var(--muted);
+}
+
+/* 8) Buttons (grote, duim-vriendelijk) */
+.btn{
+  padding: 14px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.btn:active{ transform: scale(0.98); }
+
+.btn--primary{
+  background: var(--primary);
+  border-color: transparent;
+  color: var(--primaryText);
+}
+
+.btn--danger{
+  width: 100%;
+  background: var(--danger);
+  border-color: transparent;
+  color: var(--dangerText);
+}
+
+/* 9) Lijst (nog leeg, maar alvast klaar) */
+.todoList{
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display:flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 10) Footer */
+.footer{
+  margin-top: 4px;
+}
+
+/* ✅ To-do items */
+.todoItem{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--input);
+}
+
+.todoItem input[type="checkbox"]{
+  width: 22px;
+  height: 22px;
+}
+
+.todoText{
+  flex: 1;
+  font-size: 16px;
+  word-break: break-word;
+}
+
+.todoItem--done{
+  opacity: .65;
+  text-decoration: line-through;
+}
+
+/* ❌ kleine delete knop */
+.btn--x{
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
