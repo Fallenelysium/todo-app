@@ -164,3 +164,27 @@ body{
   border-radius: 12px;
 }
 
+/* 📱 Mobiel: input en knoppen netjes onder elkaar */
+@media (max-width: 420px) {
+
+  /* input + toevoegen knop onder elkaar */
+  .add__form{
+    flex-direction: column;
+  }
+
+  /* knop wordt volle breedte */
+  .add__form .btn--primary{
+    width: 100%;
+  }
+
+  /* toggle knop iets compacter */
+  #themeToggle{
+    padding: 12px 12px;
+  }
+
+  /* titel iets kleiner */
+  .title{
+    font-size: 20px;
+  }
+}
+
