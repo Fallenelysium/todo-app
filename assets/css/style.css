@@ -52,6 +52,7 @@ body{
   border-radius: 18px;
   padding: 16px;
   box-shadow: 0 10px 30px rgba(0,0,0,.25);
+  overflow:hidden;
 }
 
 /* 6) Header */
@@ -73,12 +74,10 @@ body{
   display:flex;
   gap: 10px;
   margin-bottom: 14px;
-  align-items: stretch; /* ✅ netter uitlijnen */
 }
 
 .add__input{
   flex: 1;
-  min-width: 0; /* ✅ FIX: voorkomt dat knop “buiten” valt */
   padding: 14px;
   border-radius: 14px;
   border: 1px solid var(--border);
@@ -109,9 +108,6 @@ body{
   background: var(--primary);
   border-color: transparent;
   color: var(--primaryText);
-
-  white-space: nowrap; /* ✅ tekst blijft 1 regel */
-  flex: 0 0 auto;      /* ✅ knop blijft normaal */
 }
 
 .btn--danger{
@@ -121,7 +117,7 @@ body{
   color: var(--dangerText);
 }
 
-/* 9) Lijst */
+/* 9) Lijst (nog leeg, maar alvast klaar) */
 .todoList{
   list-style: none;
   padding: 0;
@@ -154,7 +150,6 @@ body{
 
 .todoText{
   flex: 1;
-  min-width: 0;          /* ✅ extra safe */
   font-size: 16px;
   word-break: break-word;
 }
@@ -170,26 +165,128 @@ body{
   border-radius: 12px;
 }
 
-/* 📱 Mobiel: input en knoppen netjes onder elkaar */
-@media (max-width: 420px) {
+.error{
+  color: #fca5a5;
+  font-size: 14px;
+  margin: 6px 0 10px;
+}
+.add__select{
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  color: var(--text);
+  font-size: 16px;
+}
 
-  /* input + toevoegen knop onder elkaar */
-  .add__form{
-    flex-direction: column;
-  }
 
-  /* knop wordt volle breedte */
-  .add__form .btn--primary{
-    width: 100%;
-  }
+/* ===== Filters ===== */
+.filters{
+  margin: 6px 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-  /* toggle knop iets compacter */
-  #themeToggle{
-    padding: 12px 12px;
-  }
+.filterRow{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
 
-  /* titel iets kleiner */
-  .title{
-    font-size: 20px;
-  }
+.filterLabel{
+  color: var(--muted);
+  font-size: 14px;
+  margin-right: 4px;
+}
+
+.chip{
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.chip.is-active{
+  background: var(--primary);
+  border-color: transparent;
+  color: var(--primaryText);
+}
+
+/* Select styling (als je dit nog niet had) */
+.add__select{
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--input);
+  color: var(--text);
+  font-size: 16px;
+}
+
+/* ===== Labels in todo item ===== */
+.todoMeta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.badge{
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  opacity: .95;
+}
+
+/* categorie kleuren */
+.badge--werk{ border-color: #06b6d4; color: #67e8f9; }
+.badge--school{ border-color: #a78bfa; color: #ddd6fe; }
+.badge--prive{ border-color: #fb7185; color: #fecdd3; }
+
+/* dag kleuren (simpel) */
+.badge--mon, .badge--tue, .badge--wed, .badge--thu, .badge--fri, .badge--sat, .badge--sun{
+  border-color: #22c55e;
+  color: #bbf7d0;
+}
+
+body.light .badge--werk{ color:#0e7490; }
+body.light .badge--school{ color:#5b21b6; }
+body.light .badge--prive{ color:#9f1239; }
+body.light .badge--mon,
+body.light .badge--tue,
+body.light .badge--wed,
+body.light .badge--thu,
+body.light .badge--fri,
+body.light .badge--sat,
+body.light .badge--sun{ color:#166534; }
+
+/* ===== Volgorde knoppen (↑↓) ===== */
+.orderBtns{
+  display: flex;
+  gap: 6px;
+  margin-left: 6px;
+}
+
+.btn--mini{
+  padding: 8px 10px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.badge--star{
+  border-color: #facc15;
+  color: #fde68a;
+}
+body.light .badge--star{
+  color:#92400e;
 }
