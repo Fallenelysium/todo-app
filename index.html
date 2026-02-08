@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mijn To-Do</title>
 
-  <!-- ✅ CSS link (jouw mapstructuur) -->
   <link rel="stylesheet" href="assets/css/style.css" />
 
+  <!-- PWA -->
   <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f172a">
-
+  <meta name="theme-color" content="#0f172a">
 </head>
 
 <body>
@@ -20,7 +19,6 @@
     <header class="header">
       <h1 class="title">📝 Mijn To-Do</h1>
 
-      <!-- 🌙☀️ theme toggle knop -->
       <button id="themeToggle" class="btn" type="button" aria-label="Thema wisselen">
         🌙
       </button>
@@ -29,6 +27,7 @@
     <!-- ➕ INPUT / TOEVOEGEN -->
     <section class="add">
       <form id="todoForm" class="add__form">
+
         <input
           id="todoInput"
           class="add__input"
@@ -36,15 +35,68 @@
           placeholder="Typ een taak..."
           autocomplete="off"
         />
+
+        <!-- 🏷️ categorie -->
+        <select id="category" class="add__select">
+          <option value="werk">Werk</option>
+          <option value="school">School</option>
+          <option value="prive">Privé</option>
+        </select>
+
+        <!-- 📅 dag van de week -->
+        <select id="day" class="add__select">
+          <option value="mon">Maandag</option>
+          <option value="tue">Dinsdag</option>
+          <option value="wed">Woensdag</option>
+          <option value="thu">Donderdag</option>
+          <option value="fri">Vrijdag</option>
+          <option value="sat">Zaterdag</option>
+          <option value="sun">Zondag</option>
+        </select>
+
         <button class="btn btn--primary" type="submit">Toevoegen</button>
       </form>
+
+      <p id="error" class="error" hidden>⚠️ Typ eerst een taak</p>
     </section>
+
+    <!-- 🔍 FILTERS -->
+    <section class="filters">
+      <div class="filterRow">
+        <span class="filterLabel">Categorie:</span>
+        <button class="chip is-active" type="button" data-filter-cat="all">Alles</button>
+        <button class="chip" type="button" data-filter-cat="werk">Werk</button>
+        <button class="chip" type="button" data-filter-cat="school">School</button>
+        <button class="chip" type="button" data-filter-cat="prive">Privé</button>
+      </div>
+
+      <div class="filterRow">
+        <span class="filterLabel">Dag:</span>
+        <button class="chip is-active" type="button" data-filter-day="all">Alles</button>
+        <button class="chip" type="button" data-filter-day="mon">Ma</button>
+        <button class="chip" type="button" data-filter-day="tue">Di</button>
+        <button class="chip" type="button" data-filter-day="wed">Wo</button>
+        <button class="chip" type="button" data-filter-day="thu">Do</button>
+        <button class="chip" type="button" data-filter-day="fri">Vr</button>
+        <button class="chip" type="button" data-filter-day="sat">Za</button>
+        <button class="chip" type="button" data-filter-day="sun">Zo</button>
+      </div>
+
+      <div class="filterRow">
+  <span class="filterLabel">Extra:</span>
+  <button id="toggleDoneView" class="chip is-active" type="button">
+    Toon afgevinkt
+  </button>
+</div>
+
+    </section>
+
+    <!-- 🔢 Teller -->
+    <p id="counter" class="counter"></p>
 
     <!-- 📋 LIJST -->
     <section class="todos">
-      <ul id="todoList" class="todoList">
-        <!-- Taken komen hier via JavaScript -->
-      </ul>
+      <ul id="todoList" class="todoList"></ul>
     </section>
 
     <!-- 🧹 ONDERAAN -->
@@ -56,13 +108,13 @@
 
   </main>
 
-  <!-- ✅ JS link (jouw mapstructuur) -->
-  <script src="assets/js/app.js"></script>
+  <!-- Service worker registreren -->
   <script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./service-worker.js");
-  }
-</script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js");
+    }
+  </script>
 
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
