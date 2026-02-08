@@ -19,7 +19,7 @@ themeToggleBtn.addEventListener("click", () => {
 
 
 // =========================
-// ✅ TO-DO APP (Optie B uitgebreid)
+// ✅ TO-DO APP (met waarschuwingen per dag)
 // =========================
 const form = document.getElementById("todoForm");
 const input = document.getElementById("todoInput");
@@ -49,8 +49,8 @@ render();
 // ➕ Toevoegen
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  const text = input.value.trim();
 
+  const text = input.value.trim();
   if (text === "") {
     error.hidden = false;
     return;
@@ -72,7 +72,7 @@ form.addEventListener("submit", (e) => {
 });
 
 // foutmelding weg bij typen
-input.addEventListener("input", () => error.hidden = true);
+input.addEventListener("input", () => (error.hidden = true));
 
 // 🧹 Verwijder afgevinkt
 clearDoneBtn.addEventListener("click", () => {
@@ -121,13 +121,12 @@ function render() {
   counter.textContent =
     openTasks === 0 ? "🎉 Alles gedaan!" : `📝 Nog ${openTasks} taak${openTasks > 1 ? "en" : ""}`;
 
-  // 👉 FILTER + ⭐ SORTERING
-  const visibleTodos = getVisibleTodos()
-    .sort((a, b) => {
-      if (a.important && !b.important) return -1;
-      if (!a.important && b.important) return 1;
-      return 0;
-    });
+  // Filter + ⭐ bovenaan
+  const visibleTodos = getVisibleTodos().sort((a, b) => {
+    if (a.important && !b.important) return -1;
+    if (!a.important && b.important) return 1;
+    return 0;
+  });
 
   if (visibleTodos.length === 0) {
     const empty = document.createElement("li");
@@ -139,7 +138,14 @@ function render() {
 
   visibleTodos.forEach(todo => {
     const li = document.createElement("li");
-    li.className = "todoItem" + (todo.done ? " todoItem--done" : "");
+
+    // ✅ Deadline status class (vandaag/morgen/verleden/toekomst)
+    const statusClass = getDeadlineClass(todo.day);
+
+    li.className =
+      "todoItem" +
+      (todo.done ? " todoItem--done" : "") +
+      (statusClass ? ` ${statusClass}` : "");
 
     // checkbox
     const cb = document.createElement("input");
@@ -212,7 +218,7 @@ function render() {
   });
 }
 
-// helpers
+// ✅ Filter regels
 function getVisibleTodos() {
   return todos.filter(t => {
     const catOk = filterCat === "all" || t.category === filterCat;
@@ -220,6 +226,37 @@ function getVisibleTodos() {
     const doneOk = showDone ? true : !t.done;
     return catOk && dayOk && doneOk;
   });
+}
+
+// ===== Deadline helpers =====
+// Regel: we kijken naar "deze week".
+// - zelfde dag = vandaag (groen)
+// - volgende dag = morgen (geel)
+// - eerdere dag in de week = voorbij (rood)
+// - latere dag in de week = toekomst (blauw)
+function getDeadlineClass(todoDayKey) {
+  const todayKey = getTodayKey();
+
+  const todayIndex = dayKeyToIndex(todayKey);
+  const todoIndex = dayKeyToIndex(todoDayKey);
+
+  if (todoIndex === todayIndex) return "todoItem--today";
+
+  // morgen = vandaag + 1 (met wrap naar zondag)
+  const tomorrowIndex = (todayIndex + 1) % 7;
+  if (todoIndex === tomorrowIndex) return "todoItem--tomorrow";
+
+  // verleden = eerder in de week (zonder wrap)
+  // voorbeeld: vandaag=vrijdag(4), todo=maandag(0) => verleden
+  if (todoIndex < todayIndex) return "todoItem--past";
+
+  // toekomst (later deze week)
+  return "todoItem--future";
+}
+
+function dayKeyToIndex(key) {
+  const map = { mon: 0, tue: 1, wed: 2, thu: 3, fri: 4, sat: 5, sun: 6 };
+  return map[key] ?? 0;
 }
 
 function niceCategory(cat) {
@@ -238,11 +275,13 @@ function niceDay(day) {
 }
 
 function getTodayKey() {
+  // JS: 0=Sunday, 1=Monday, ...
   const d = new Date().getDay();
-  return ["sun","mon","tue","wed","thu","fri","sat"][d];
+  const keys = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+  return keys[d];
 }
 
-// storage
+// 💾 Storage
 function saveTodos() {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
