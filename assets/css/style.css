@@ -290,3 +290,30 @@ body.light .badge--sun{ color:#166534; }
 body.light .badge--star{
   color:#92400e;
 }
+
+
+/* ===== Deadline kleuren (vandaag/morgen/verleden) ===== */
+.todoItem--today{
+  border-color: #22c55e;
+}
+
+.todoItem--tomorrow{
+  border-color: #f59e0b;
+}
+
+.todoItem--past{
+  border-color: #ef4444;
+}
+
+.todoItem--future{
+  border-color: #60a5fa;
+}
+
+/* Kleine extra: maak “verleden” iets opvallender */
+.todoItem--past .todoText{
+  color: #fecaca;
+}
+body.light .todoItem--past .todoText{
+  color: #991b1b;
+}
+
